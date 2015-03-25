@@ -35,19 +35,19 @@ def is_word_in_dict(dictionary, word, left=0):
     :return: bool
     """
 
-        right = len(dictionary)-1
-        while right >= left:
-            middle = (left+right)//2
-            if dictionary[middle] == word:
-                return True
-            elif dictionary[middle] < word:
-                left = middle+1
-            elif dictionary[middle] > word:
-                right = middle - 1
-            elif left > right:
-                print(word)
-            else:
-                return False
+    right = len(dictionary)-1
+    while right >= left:
+        middle = (left+right)//2
+        if dictionary[middle] == word:
+            return True
+        elif dictionary[middle] < word:
+            left = middle+1
+        elif dictionary[middle] > word:
+            right = middle - 1
+        elif left > right:
+            print(word)
+        else:
+            return False
 
 
 def main():
