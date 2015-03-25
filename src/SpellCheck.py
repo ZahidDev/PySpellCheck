@@ -1,9 +1,6 @@
 #!/usr/bin/python
-
 from os.path import dirname
-
 import requests  # Uses Requests Library for URL handling
-
 
 
 # Used for reference purposes
