@@ -1,21 +1,42 @@
 #!/usr/bin/python
-import urllib.request
+
 from os.path import dirname
 
+import requests  # Uses Requests Library for URL handling
 
+
+# Used for reference purposes
 global dictionary
 
 
-# Creates a Dictionary from given text
 def dict_parser(text_file):
+    """
+    Reads Locale Dictionary files and returns a OFFLINE
+    dictionary.
+
+    :param text_file: takes a user inputed dictionary local list
+    :return: A dictionary list
+    """
+
     with open(text_file) as txt:
         global dictionary
         dictionary = txt.read().splitlines()
     return dictionary
 
 
-# Uses Binary Search Methods to locate user word
 def is_word_in_dict(dictionary, word, left=0):
+    """
+    Uses Binary Search (for now) to locate if user input value
+    is correctly spelled if found in list.
+
+    *uses global variable dictionary for reference purposes.*
+
+    :param dictionary: list of words in user selected locale
+    :param word: user input word(string) value.
+    :param left: starting point for BS
+    :return: bool
+    """
+
         right = len(dictionary)-1
         while right >= left:
             middle = (left+right)//2
@@ -45,6 +66,7 @@ def main():
         dict_version = input('ONLINE or OFFLINE Dictionary? ').lower()
 
     if dict_version == "offline":
+        # Locates directory for locale files
         parent_direct = dirname(dirname(__file__))
         dict_lang = parent_direct + '/dict_locale/' + input('Select your language locale ') + ".txt"
         global dictionary
@@ -52,11 +74,11 @@ def main():
     else:
         # Creates Dictionary from URL
         url = "http://goo.gl/dz2H3E"
-        online_dict = urllib.request.urlopen(url)
-        dictionary = online_dict.read().splitlines()
+        online_dict = requests.get(url)
+        dictionary = online_dict.text.splitlines()
 
     user_continue = True
-    while user_continue :
+    while user_continue:
         word = input("Give me a word to Spell Check! ").lower()
         while not word.isalpha():
             word = input("Give me a WORD to Spell Check! ").lower()
